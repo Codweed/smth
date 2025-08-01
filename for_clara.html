@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>August 1 – For You</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #f0f0f0;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .lock-screen, .message-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    .box {
+      background-color: #222;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 15px;
+      width: 80%;
+      font-size: 16px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .error {
+      color: #ff4b5c;
+      margin-top: 10px;
+      height: 20px;
+    }
+
+    .photo {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .typed-text {
+      white-space: pre-wrap;
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lock Screen -->
+  <div id="lockScreen" class="lock-screen active box">
+    <h2>Enter the code 🩶</h2>
+    <input type="text" id="codeInput" placeholder="Type here...">
+    <button onclick="unlock()">Unlock</button>
+    <div id="errorMsg" class="error"></div>
+  </div>
+
+  <!-- Message Screen -->
+  <div id="messageScreen" class="message-screen box">
+    <img id="herPhoto" class="photo" src="clara.jpg" alt="Her Photo">
+    <div id="typed" class="typed-text"></div>
+  </div>
+
+  <script>
+    const correctCode = "bby";
+    const errorMsg = document.getElementById("errorMsg");
+
+    function unlock() {
+      const input = document.getElementById("codeInput").value.toLowerCase();
+      if (input === correctCode) {
+        document.getElementById("lockScreen").classList.remove("active");
+        document.getElementById("messageScreen").classList.add("active");
+        setTimeout(typeMessage, 1200);
+      } else {
+        errorMsg.textContent = "Wrong word, try again 🤍";
+      }
+    }
+
+    const lines = [
+      "Hey bby,",
+      "",
+      "I didn’t make this just for August 1.",
+      "I made it because lately... you've been everything.",
+      "",
+      "No title, no pressure, just us — whatever this is.",
+      "And I don’t need to define it to know it’s real.",
+      "",
+      "You call me bby. You trust me with your heart.",
+      "And you have mine too, even if I act cool about it.",
+      "",
+      "I could write a long message, but you already know.",
+      "So here it is — short, coded, but real:",
+      "",
+      "You're loved.",
+      "You're safe with me.",
+      "You're mine in ways that matter.",
+      "",
+      "– R 🩶"
+    ];
+
+    let line = 0;
+    let char = 0;
+    const speed = 35;
+    const output = document.getElementById("typed");
+
+    function typeMessage() {
+      if (line < lines.length) {
+        if (char < lines[line].length) {
+          output.innerHTML += lines[line][char++];
+          setTimeout(typeMessage, speed);
+        } else {
+          output.innerHTML += "\n";
+          line++;
+          char = 0;
+          setTimeout(typeMessage, 400);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
